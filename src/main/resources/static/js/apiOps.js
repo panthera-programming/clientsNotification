@@ -1,6 +1,6 @@
 
 const baseUrl = "http://localhost:8080"
-//const baseUrl = "https://-.azurewebsites.net"
+//const baseUrl = "https://meladenservice.azurewebsites.net"
 
 function formToJson(formContainer, urlLink, respIndicator, failIndicator)
 {
