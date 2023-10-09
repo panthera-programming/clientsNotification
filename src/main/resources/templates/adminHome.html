@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Admin</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <!--<link th:href="@{}" rel="stylesheet">-->
+        <link
+                rel="stylesheet"
+                href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
+                integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+                crossorigin="anonymous"
+        >
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+        >
+        <link
+                rel="stylesheet"
+                href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        />
+        <link
+                rel="stylesheet"
+                href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0"
+        />
+        <style type="text/css">
+            .icon-container {
+                background-color: rgba(78, 76, 74, 0.4);
+                width: 28px;height: 28px; 
+                border-radius: 14px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        </style>
+    </head>
+    <body style="position: relative;padding: 0;">
+        <header></header>
+        <main>
+            <div>
+                <div class="d-flex justify-content-end align-items-center" style="margin-top: 2rem;">
+                    <div class="" style="padding-left: 2rem;margin-right: 5rem;">
+                        <a th:href="@{/logout}" style="font-size: 30px;">
+                            <i class="bi bi-box-arrow-right" style="color: rgba(68, 40, 12, 0.95);"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <section style="margin-top: 2rem;">
+                <div class="d-flex align-items-center">
+                    <div class="col-4 d-flex justify-content-center">
+                        <article style="border-radius: 20px;">
+                            <img src="/imgs/brand-logo.png" width="400px" style="border-radius: 10% / 50%;">
+                        </article>
+                    </div>
+                    <div
+                            class="col-7 d-flex justify-content-between align-items-center border"
+                            style="background-color: rgb(188, 32, 48, 0.85);margin-left: 3rem;height: 4rem;margin-bottom: 2rem;"
+                    >
+                        <article th:if="${param.admin}">
+                            <a id="create-staff-link" href="#create-staff-form" style="font-size: 16px;color: rgb(223, 220, 219);">Create Staff</a>
+                        </article>
+                        <article 
+                            th:if="${param.staff}" 
+                            class="d-flex justify-content-center align-items-center"
+                            style="width: 85px;height: 85px;border-radius: 50%;background-color: rgb(223, 220, 219);"
+                        >
+                            <img src="/imgs/real-estate-logo.jpg" width="80px;" height="80px;" style="border-radius: 50%;"/>
+                        </article>
+                        <article style="position: relative;">
+                            <a id="toggleDrop1" href="#section-div-properties" style="font-size: 16px;color: rgb(223, 220, 219);">Our Properties</a>
+                        </article>
+                        <article style="position: relative;">
+                            <a id="toggleDrop2" style="font-size: 16px;color: rgb(223, 220, 219);">Clients</a>
+                            <ul
+                                class="d-none drop-down-client flex-column justify-content-between flex-wrap"
+                                style="position: absolute;margin-left: -15rem;padding: 0.5rem;top: 2rem;border: 1px solid rgb(78, 76, 74);border-radius: 6px;list-style-type: none;width: 250px;"
+                            >
+                                <!-- load a list of products and place in tags -->
+                            </ul>
+                        </article>
+                    </div>
+                </div>
+            </section>
+            <section style="margin-top: 4rem;">
+                <div id="section-div-properties">
+                    <div style="position: relative;" class="col-10 mx-auto d-flex justify-content-center flex-column">
+                        <h4 class="text-center col-5 mx-auto" style="margin-bottom: 4rem;">Available Properties</h4>
+                        <span style="position: absolute;top: 5%;right: 15%;">
+                            <a
+                                    id="create-product-link"
+                                    href="#create-product-form"
+                                    class="btn"
+                                    style="background-color: rgba(68, 40, 12, 0.95);color: rgba(255, 255, 255, 0.6);font-size: 15px;"
+                            >
+                                New Property
+                            </a>
+                        </span>
+                        <div class="d-flex flex-column justify-content-center mx-auto">
+                            <table
+                                    id="products-table"
+                                    class="table"
+                                    style="width: 800px;border: 1px solid rgba(68, 40, 12, 0.8);border-radius: 6px 6px 0px 0px;"
+                            >
+                                <thead>
+                                    <tr style="background-color: rgb(78, 76, 74);color: rgb(223, 220, 219);border-radius: 6px 6px 0px 0px;">
+                                        <th scope="col">Id</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Value</th>
+                                        <!--<th scope="col">Edit</th>
+                                        <th scope="col">Clients</th>-->
+                                    </tr>
+                                </thead>
+                                <!-- iteratively create table rows for each product in list from backend -->
+                                <tbody class="table-group-divider prod-table"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section style="margin-top: 5rem; margin-bottom: 5rem;">
+                <div>
+                    <div id="selected-prod-clients" class="col-10 d-flex flex-column justify-content-center mx-auto" style="position: relative;">
+                        <!-- product name from backend -->
+                        <h4 id="product-name" class="text-center" style="margin-bottom: 4rem;">Product Name</h4>
+                        <div class="col-3 d-flex justify-content-between" style="position: absolute;top: 10%;right: 15%;">
+                            <span  style="color: rgb(223, 220, 219);">
+                                <a id="bulk-mail-link" href="#bulk-mail-form" class="d-block btn" style="background-color: rgba(16, 12, 12, 0.45);font-size: 15px;">Bulk Mail</a>
+                            </span>
+                            <span class="d-block" style="color: rgb(223, 220, 219);">
+                                <a id="bulk-sms-link" href="#bulk-sms-form" class="btn"  style="background-color: rgba(16, 12, 12, 0.45);font-size: 15px;">Bulk SMS</a>
+                            </span>
+                        </div>
+                        <div class="col-2 d-flex justify-content-between" style="position: absolute;top: 10%;left: 15%;">
+                            <span class="d-flex justify-content-center align-items-center" style="width: fit-content;height: fit-content;padding: 4px;border-radius: 45px;background-color: rgba(68, 40, 12, 0.2);">
+                                <a id="create-client-link" href="#create-client-form" class="material-symbols-rounded" style="font-size: 40px;color: rgb(78, 76, 74);">person_add</a>
+                            </span>
+                            <span class="d-flex justify-content-center align-items-center" style="width: fit-content;height: fit-content;padding: 4px;border-radius: 45px;background-color: rgba(68, 40, 12, 0.2);">
+                                <a id="reload-prod-clients" class="material-symbols-rounded" style="font-size: 40px;color: rgb(37, 249, 118);cursor: pointer;">cached</a>
+                            </span>
+                        </div>
+                        <div class="d-flex justify-content-center flex-column mx-auto">
+                            <table class="table" id="clients-table" style= "width: 800px;border: 1px solid rgba(78, 76, 74, 0.8);">
+                                <thead>
+                                    <tr style="background-color: rgba(68, 40, 12, 0.95);color: rgba(255, 255, 255, 0.6);">
+                                        <th scope="col">Id</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Phone</th>
+                                        <!--<th scope="col">Edit</th>-->
+                                        <th scope="col">Remove</th>
+                                    </tr>
+                                </thead>
+                                <!-- iteratively create table rows for each client in list -->
+                                <tbody class="clients-table-body"></tbody>
+                            </table>
+                            <div>
+                                <a
+                                        class="btn btn-outline-danger"
+                                >
+                                    Delete Product
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="col-8 mx-auto">
+                    <!-- create staff form -->
+                    <div id="create-staff-form" class="d-none col-8 mx-auto" style="background-color: rgba(16, 12, 12, 0.45);height: 45vh;padding: 1rem;border-radius: 5px;">
+                        <h4 style="font-size: 20px;color: rgb(68, 40, 12);">Register New Staff Member</h4>
+                        <form th:method="POST">
+                            <span class="d-block d-flex justify-content-center" style="margin-top: 2rem;margin-bottom: 1rem;color: rgb(68, 40, 12);">
+                                <label class="col-3 text-start">Enter Name</label>
+                                <input id="name" name="name" placeholder="staff name" type="text" style="text-align: center;"/>
+                            </span>
+                            <span class="d-block d-flex justify-content-center" style="margin-top: 1rem;margin-bottom: 1rem;color: rgb(68, 40, 12);">
+                                <label class="col-3 text-start">Enter Email</label>
+                                <input id="email" name="email" placeholder="name@example.com" type="text" style="text-align: center;"/>
+                            </span>
+                            <span class="d-block d-flex justify-content-center" style="margin-top: 1rem;margin-bottom: 1rem;color: rgb(68, 40, 12);">
+                                <label class="col-3 text-start" style="transform: translateX(-25%);">Select Role</label>
+                                <select class="col-3" id="role" name="role" style="transform: translateX(-25%);text-align: center;color: rgb(68, 40, 12);" >
+                                    <option value="Admin">Admin</option>
+                                    <option value="Staff">Staff</option>
+                                </select>
+                            </span>
+                            <div class="col-11 d-flex justify-content-between mx-auto" style="padding: 0.5rem;">
+                                <input type="submit" value="Register" style="padding: 0.5rem;color: rgb(68, 40, 12);"/>
+                                <span id="staff-response-success" class="d-none flex-column justify-content-center align-items-center" style="color: rgb(37, 249, 118);">
+                                    <i class="bi bi-check-circle-fill"></i>
+                                    <span>Operation Successful!</span>
+                                </span>
+                                <span id="staff-response-failure" class="d-none flex-column justify-content-center align-items-center" style="color: rgb(249, 11, 6);">
+                                    <i class="bi bi-exclamation-triangle-fill"></i>
+                                    <span>Operation Failed!</span>
+                                </span>
+                                <span id="cancel-staff" class="btn d-block" style="width: 80px;background-color: rgba(188, 32, 48, 0.9);color: rgb(223, 220, 219);">Close</span>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- create product form -->
+                    <div id="create-product-form" class="d-none col-8 mx-auto" style="background-color: rgba(16, 12, 12, 0.45);height: 45vh;padding: 1rem;border-radius: 5px;">
+                        <h4 style="font-size: 20px;color: rgb(68, 40, 12);">Create New Product</h4>
+                        <form th:method="POST">
+                            <span class="d-block d-flex justify-content-center" style="margin-top: 2rem;margin-bottom: 1rem;color: rgb(68, 40, 12);">
+                                <label class="col-3 text-start">Product Name</label>
+                                <input id="name" name="name" type="text" style="text-align: center;"/>
+                            </span>
+                            <span class="d-block d-flex justify-content-center" style="margin-top: 1rem;margin-bottom: 1rem;color: rgb(68, 40, 12);">
+                                <label class="col-3 text-start">Product Value</label>
+                                <input id="value" name="value" type="text" style="text-align: center;"/>
+                            </span>
+                            <div class="col-11 d-flex justify-content-between mx-auto" style="padding: 0.5rem;">
+                                <input type="submit" value="Save Product" style="padding: 0.5rem;color: rgb(68, 40, 12);"/>
+                                <span id="prod-response-success" class="d-none flex-column justify-content-center align-items-center" style="color: rgb(37, 249, 118);">
+                                    <i class="bi bi-check-circle-fill"></i>
+                                    <span>Operation Successful!</span>
+                                </span>
+                                <span id="prod-response-failure" class="d-none flex-column justify-content-center align-items-center" style="color: rgb(249, 11, 6);">
+                                    <i class="bi bi-exclamation-triangle-fill"></i>
+                                    <span>Operation Failed!</span>
+                                </span>
+                                <span id="cancel-product" class="btn d-block" style="width: 80px;background-color: rgba(188, 32, 48, 0.9);color: rgb(223, 220, 219);">Close</span>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- create client form -->
+                    <div id="create-client-form" class="d-none col-8 mx-auto" style="background-color: rgba(16, 12, 12, 0.45);height: 45vh;padding: 1rem;border-radius: 5px;">
+                        <h4 style="font-size: 20px;">Register  New Client</h4>
+                        <form th:method="POST">
+                            <span class="d-block d-flex justify-content-center" style="margin-top: 2rem;margin-bottom: 1rem;color: rgb(68, 40, 12);">
+                                <label class="col-3 text-start">Enter Name</label>
+                                <input id="name" name="name" type="text" placeholder="client name" style="text-align: center;"/>
+                            </span>
+                            <span class="d-block d-flex justify-content-center" style="margin-top: 1rem;margin-bottom: 1rem;color: rgb(68, 40, 12);">
+                                <label class="col-3 text-start">Enter Email</label>
+                                <input id="email" name="email" type="email" style="text-align: center;"/>
+                            </span>
+                            <span class="d-block d-flex justify-content-center" style="margin-top: 1rem;margin-bottom: 1rem;color: rgb(68, 40, 12);">
+                                <label class="col-3 text-start">Enter Phone</label>
+                                <input id="phone" name="phone" type="text" placeholder="e.g +254..." style="text-align: center;"/>
+                            </span>
+                            <div class="col-11 d-flex justify-content-between mx-auto" style="padding: 0.5rem;">
+                                <input type="submit" value="Register" style="padding: 0.5rem;color: rgb(68, 40, 12);"/>
+                                <span id="client-response-success" class="d-none flex-column justify-content-center align-items-center" style="color: rgb(37, 249, 118);">
+                                    <i class="bi bi-check-circle-fill"></i>
+                                    <span>Operation Successful!</span>
+                                </span>
+                                <span id="client-response-failure" class="d-none flex-column justify-content-center align-items-center" style="color: rgb(249, 11, 6);">
+                                    <i class="bi bi-exclamation-triangle-fill"></i>
+                                    <span>Operation Failed!</span>
+                                </span>
+                                <span id="cancel-client" class="btn d-block" style="width: 80px;background-color: rgba(188, 32, 48, 0.9);color: rgb(223, 220, 219);">Close</span>
+                            </div>
+                        </form>
+                    </div>
+                    <!--bulk mail-->
+                    <div
+                            id="bulk-mail-form"
+                            class="d-none col-8 mx-auto flex-column align-items-center"
+                            style="background-color: rgba(16, 12, 12, 0.45);height: 40vh;padding-top: 1rem;border-radius: 5px;"
+                    >
+                        <h4 class="text-start" style="font-size: 20px;">Mail <span class="mail-reciever">All clients</span></h4>
+                        <form th:method="POST">
+                            <div class="" style="margin-top: 0.5rem;height: 60%;">
+                                <textarea id="mail-textarea" autofocus placeholder="Enter message here" style="width: 300px;height: 100%;resize: none;"></textarea>
+                            </div>
+                            <div class="col-11 d-flex justify-content-between mx-auto" style="margin-top: 0.5rem;">
+                                <input id="send-mail" type="submit" value="Send" style="width: 80px;margin: 0.5rem;">
+                                <span id="mail-response-success" class="d-none flex-column justify-content-center align-items-center" style="color: rgb(37, 249, 118);">
+                                    <i class="bi bi-check-circle-fill"></i>
+                                    <span>Operation Successful!</span>
+                                </span>
+                                <span id="mail-response-failure" class="d-none flex-column justify-content-center align-items-center" style="color: rgb(249, 11, 6);">
+                                    <i class="bi bi-exclamation-triangle-fill"></i>
+                                    <span>Operation Failed!</span>
+                                </span>
+                                <span id="cancel-mail" class="btn d-block" style="width: 80px;background-color: rgba(188, 32, 48, 0.9);color: rgb(223, 220, 219);">close</span>
+                            </div>
+                        </form>
+                    </div>
+                    <!--bulk sms-->
+                    <div
+                            id="bulk-sms-form"
+                            class="d-none col-8 mx-auto flex-column align-items-center"
+                            style="background-color: rgba(16, 12, 12, 0.45);height: 40vh;padding-top: 1rem;border-radius: 5px;">
+                        <h4 class="text-start" style="font-size: 20px;">SMS <span class="sms-reciever">All clients</span></h4>
+                        <form th:method="POST">
+                            <div class="" style="margin-top: 0.5rem;height: 60%;">
+                                <textarea id="sms-textarea" autofocus placeholder="Enter message here" style="width: 300px;height: 100%;resize: none;"></textarea>
+                            </div>
+                            <div class="col-11 d-flex justify-content-between mx-auto" style="margin-top: 0.5rem;">
+                                <input id="send-sms" type="submit" value="Send" style="width: 80px;margin: 0.5rem;">
+                                <span id="sms-response-success" class="d-none flex-column justify-content-center align-items-center" style="color: rgb(37, 249, 118);">
+                                    <i class="bi bi-check-circle-fill"></i>
+                                    <span>Operation Successful!</span>
+                                </span>
+                                <span id="sms-response-failure" class="d-none flex-column justify-content-center align-items-center" style="color: rgb(249, 11, 6);">
+                                    <i class="bi bi-exclamation-triangle-fill"></i>
+                                    <span>Operation Failed!</span>
+                                </span>
+                                <span id="cancel-sms" class="btn d-block" style="width: 80px;background-color: rgba(188, 32, 48, 0.9);color: rgb(223, 220, 219);">Close</span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+            <script th:if="${param.admin}">
+                document.getElementById("create-staff-link").addEventListener("click", () => {
+                    document.getElementById("create-staff-form").classList.replace("d-none", "d-block")
+                })
+                document.getElementById("cancel-staff").addEventListener("click", () => {
+                    document.getElementById("create-staff-form").classList.replace("d-block", "d-none")
+                })
+            </script>
+            <script src="/js/adminHome.js"></script>
+            <script src="/js/apiOps.js"></script>
+        </main>
+        <footer>
+            <div
+                    class="d-flex justify-content-start"
+                    style="position: absolute;top: 100%;height: 8rem;width: 100%;margin: 0;background-color: rgba(188, 32, 48, 0.8);margin-top: 4rem;"
+            >
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex col-12" style="margin-top: 10%;margin-left: 40%;">
+                        <span style="margin-right: 1rem;">
+                            <img src="/imgs/logo-icon.png" width="80px" height="80px" style="border-radius: 50%;"/>
+                        </span>
+                        <span style="font-size: 20px;color: rgba(223, 220, 219, 0.8);">
+                            Meladen<br><span style="font-size: 16px;">Properties</span>
+                            <p style="font-size: 12px;font-style: italic;">Client service with compassion</p>
+                        </span>
+                    </div>
+                </div>
+                <div  style="margin-left: 20%;">
+                    <div
+                            class="col-12 d-flex flex-column justify-content-between"
+                            style="font-size: 16px;margin-top: 20%;color: rgba(223, 220, 219, 0.8);"
+                    >
+                        <span>
+                            <a>About Us</a>
+                        </span>
+                        <span>
+                            <a>Contact Admin</a>
+                        </span>
+                        <span>
+                            &copy;Meladen Properties 2023
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>
