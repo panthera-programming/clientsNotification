@@ -1,4 +1,7 @@
 
+const baseUrl = "http://localhost:8080"
+//const baseUrl = "https://-.azurewebsites.net"
+
 function formToJson(formContainer, urlLink, respIndicator, failIndicator)
 {
     document.getElementById(formContainer).addEventListener("submit", (form) => {
@@ -30,7 +33,7 @@ function saveProdClient(formContainer, urlLink, respIndicator, failIndicator, nu
 
 async function perProdClients(num)
 {
-    var url = `http://localhost:8080/api/client/all?prodId=${num}`
+    var url = `${baseUrl}/api/client/all?prodId=${num}`
 
     const endpointRes = await fetch(url, 
         {
@@ -73,7 +76,7 @@ let allProdArray = []
 
 async function loadAllProducts(){
 
-    const url = "http://localhost:8080/api/product/all"
+    const url = `${baseUrl}/api/product/all`
     const endpointRes = await fetch(url, 
         {
             method : "GET"
@@ -148,7 +151,7 @@ function processProdClick()
             { 
                 prodClicked(pos)
                 document.querySelector("h4#product-name").innerText = allProdNamesText[pos]
-                saveProdClient("create-client-form", "http://localhost:8080/api/client/new", "client-response-success", "client-response-failure",pos)
+                saveProdClient("create-client-form", `${baseUrl}/api/client/new`, "client-response-success", "client-response-failure",pos)
             }
         })
     })
@@ -164,7 +167,7 @@ function processProdClick()
             { 
                 prodClicked(pos)
                 document.querySelector("h4#product-name").innerText = prodName.innerText
-                saveProdClient("create-client-form", "http://localhost:8080/api/client/new", "client-response-success", "client-response-failure",pos)
+                saveProdClient("create-client-form", `${baseUrl}/api/client/new`, "client-response-success", "client-response-failure",pos)
             }
         })
     })
@@ -302,12 +305,12 @@ function sendMailSms(msgType,container)
     
     if (msgType === "sms")
     {
-        const link = `http://localhost:8080/api/client/sms/all?prodId=${prodId}`
+        const link = `${baseUrl}/api/client/sms/all?prodId=${prodId}`
         sendSms(container,link)
     }
     else
     {
-        const link = `http://localhost:8080/api/client/mail/all?prodId=${prodId}`
+        const link = `${baseUrl}/api/client/mail/all?prodId=${prodId}`
         sendMail(container,link)
     }
 }
@@ -355,9 +358,9 @@ function sendSms(formContainer,endpointLink){
 window.onload = loadAllProducts();
 
 document.addEventListener("DOMContentLoaded", () => {
-    formToJson("create-product-form", "http://localhost:8080/api/product/new", "prod-response-success", "prod-response-failure")
-    //formToJson("create-client-form", "http://localhost:8080/api/client/new", "client-response-success", "client-response-failure")
-    formToJson("create-staff-form", "http://localhost:8080/api/staff/new", "staff-response-success", "staff-response-failure")
+    formToJson("create-product-form", `${baseUrl}/api/product/new`, "prod-response-success", "prod-response-failure")
+    //formToJson("create-client-form", `${baseUrl}/api/client/new`, "client-response-success", "client-response-failure")
+    formToJson("create-staff-form", `${baseUrl}/api/staff/new`, "staff-response-success", "staff-response-failure")
     reloadClients()
 
     handleDropDowns()
