@@ -18,7 +18,7 @@ public class ClientsNotificationApplication {
 	public void setCredConf(){
 		credConf.setDbName(System.getenv("db_name"));
 		credConf.setDbPass(System.getenv("db_pass"));
-		credConf.setDbUrl(System.getenv("db_url"));
+		//credConf.setDbUrl(System.getenv("db_url"));
 
 		credConf.setMailName(System.getenv("mail_name"));
 		credConf.setMailPass(System.getenv("mail_pass"));

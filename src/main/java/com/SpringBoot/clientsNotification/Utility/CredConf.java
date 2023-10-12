@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 public class CredConf {
     String dbName;
     String dbPass;
-    String dbUrl;
+    //String dbUrl;
     String mailName;
     String mailPass;
     String mailHost;
