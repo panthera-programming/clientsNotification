@@ -318,7 +318,7 @@ function sendMailSms(msgType,container)
 function perClientOps(msgType,container,cancelBtn,respIndicator,failIndicator,rcvr,id)
 {
     console.log("client of id " + id + " clicked")
-    document.getElementById(container).classList.replace("d-none", "d-block")
+    //document.getElementById(container).classList.replace("d-none", "d-block")
     document.querySelector(rcvr).innerText = "Client"
     if (msgType === "sms")
     {
@@ -372,80 +372,3 @@ document.addEventListener("DOMContentLoaded", () => {
 })
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*var defaultClients = []
-    defaultClients = productArray[0].client
-    console.log(defaultClients)
-    if (defaultClients.length > 0)
-    {
-        for (var client of defaultClients)
-        {
-            tableRaw = document.createElement("tr")
-            field1 = document.createElement("td")
-            field1.innerText = client.id
-            tableRaw.appendChild(field1)
-            field2 = document.createElement("td")
-            field2.innerText = client.name
-            tableRaw.appendChild(field2)
-
-            field3 = document.createElement("td")
-            field3A = document.createElement("a")
-            field3A.innerText = client.email
-            field3.appendChild(field3A)
-            tableRaw.appendChild(field3)
-
-            field4 = document.createElement("td")
-            field4A = document.createElement("a")
-            field4A.innerText = client.phone
-            field4.appendChild(field4A)
-            tableRaw.appendChild(field4)
-
-            field5 = document.createElement("td")
-            spanField5 = document.createElement("span")
-            spanField5.setAttribute("class", "icon-container")
-            spanField5A = document.createElement("a")
-            spanField5A.setAttribute("class", "material-symbols-rounded")
-            spanField5A.innerText = "edit"
-            spanField5.appendChild(spanField5A)
-            field5.appendChild(spanField5)
-            tableRaw.appendChild(field5)
-
-            field6 = document.createElement("td")
-            spanField6 = document.createElement("span")
-            spanField6.setAttribute("class", "icon-container")
-            spanField6A = document.createElement("a")
-            spanField6A.setAttribute("class", "material-symbols-rounded")
-            spanField6A.innerText = "delete"
-            spanField6.appendChild(spanField6A)
-            field6.appendChild(spanField6)
-            tableRaw.appendChild(field6)
-
-            document.querySelector(".clients-table-body").appendChild(tableRaw)
-        }
-    }
-    else
-    {
-        tableRaw = document.createElement("tr")
-        field = document.createElement("td")
-        field.innerText = "No clients yet. Add clients to this property..."
-        field.setAttribute("colspan", "6")
-        tableRaw.appendChild(field)
-        document.querySelector(".clients-table-body").appendChild(tableRaw)
-    }*/
