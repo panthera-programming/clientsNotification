@@ -241,6 +241,7 @@ async function prodClicked(num)
             spanField6.setAttribute("class", "icon-container")
             spanField6A = document.createElement("a")
             spanField6A.setAttribute("class", "material-symbols-rounded")
+            spanField6A.classList.add("delete-icon")
             spanField6A.innerText = "delete"
             spanField6.appendChild(spanField6A)
             field6.appendChild(spanField6)
