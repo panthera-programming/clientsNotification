@@ -238,8 +238,9 @@ async function prodClicked(num)
 
             field6 = document.createElement("td")
             spanField6 = document.createElement("span")
-            spanField6.setAttribute("class", "icon-container")
-            spanField6.addEventListener("click", async () => {
+            spanField6.classList.add("icon-container", "delete-client")
+            //spanField6.setAttribute("class", "icon-container")
+            /*spanField6.addEventListener("click", async () => {
                 var clientId = field1.innerText
                 const url = `${baseUrl}/api/client/delete?clientId=${clientId}`
                 console.log("Deleting client of id " + clientId)
@@ -250,7 +251,7 @@ async function prodClicked(num)
                     }
                 )
                 console.log(resp)
-            })
+            })*/
             spanField6A = document.createElement("a")
             spanField6A.setAttribute("class", "material-symbols-rounded")
             spanField6A.classList.add("delete-icon")
