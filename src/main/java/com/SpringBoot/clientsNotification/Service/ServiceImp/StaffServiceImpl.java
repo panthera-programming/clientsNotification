@@ -44,7 +44,7 @@ public class StaffServiceImpl implements StaffService {
     public String registerStaff(StaffEntity staff)
     {
         staffRepository.save(staff);
-        return ("Staff Created Successfully!");
+        return ("Staff Registration Successfully!");
     }
 
     @Override

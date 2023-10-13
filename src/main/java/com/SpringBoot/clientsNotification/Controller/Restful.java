@@ -1,10 +1,7 @@
 package com.SpringBoot.clientsNotification.Controller;
 
 import com.SpringBoot.clientsNotification.Entities.*;
-import com.SpringBoot.clientsNotification.Service.ClientService;
-import com.SpringBoot.clientsNotification.Service.EmailService;
-import com.SpringBoot.clientsNotification.Service.MySmsService;
-import com.SpringBoot.clientsNotification.Service.ProductService;
+import com.SpringBoot.clientsNotification.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +14,8 @@ import java.util.Map;
 
 @RestController
 public class Restful {
-
+    @Autowired
+    private StaffService staffService;
     @Autowired
     private ProductService productService;
     @Autowired
@@ -151,9 +149,10 @@ public class Restful {
     {
         String msg;
         System.out.println("\n\n*****\t"+staff+"\t*****\n\n");
+
         if (staff != null)
         {
-            msg = "Staff registration SUCCESSFUL";
+            msg = staffService.registerStaff(staff);
         }
         else
             msg = "Staff registration UNSUCCESSFUL";
