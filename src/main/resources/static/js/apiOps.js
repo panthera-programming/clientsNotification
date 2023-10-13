@@ -255,6 +255,16 @@ function reloadClients()
 {
     document.getElementById("reload-prod-clients").addEventListener("click", () => {
         console.log("Hit the clients' reload button!")
+        var prodName = document.querySelector("h4#product-name").innerText    
+        
+        for (let prod of allProdArray)
+        {
+            if (prodName == prod.name)
+            {
+                prodClicked(allProdArray.indexOf(prod))
+                break
+            }
+        }
         document.querySelectorAll("input").forEach((elem) => {
             elem.innerText = ""
         })
