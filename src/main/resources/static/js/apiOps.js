@@ -239,11 +239,17 @@ async function prodClicked(num)
             field6 = document.createElement("td")
             spanField6 = document.createElement("span")
             spanField6.setAttribute("class", "icon-container")
-            spanField6.addEventListener("click", () => {
+            spanField6.addEventListener("click", async () => {
                 var clientId = field1.innerText
                 const url = `${baseUrl}/api/client/delete?clientId=${clientId}`
                 console.log("Deleting client of id " + clientId)
                 console.log("Delete request to be sent to " + url)
+                const resp = await fetch(url, 
+                    {
+                        method : "DELETE"
+                    }
+                )
+                console.log(resp)
             })
             spanField6A = document.createElement("a")
             spanField6A.setAttribute("class", "material-symbols-rounded")

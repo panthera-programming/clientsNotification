@@ -51,6 +51,20 @@ public class Restful {
                 .build())
         );
     }
+    @DeleteMapping("/api/client/delete")
+    public ResponseEntity<HttpResponse> deleteClient(@RequestParam("clientId") Long id)
+    {
+        String msg = "Client of id " + id + " deleted successfully";
+
+        return (ResponseEntity.ok().body(HttpResponse.builder()
+                .data(Map.of("resp", "Client deleted!"))
+                .message(msg)
+                .requestMethod("DELETE")
+                .status(HttpStatus.OK)
+                .statusCode(HttpStatus.OK.value())
+                .build())
+        );
+    }
     @GetMapping("/api/client/all")
     public ResponseEntity<HttpResponse> allClientsPerProd(@RequestParam("prodId") Long id)
     {
