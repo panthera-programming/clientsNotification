@@ -351,7 +351,7 @@ function perClientOps(msgType,container,cancelBtn,respIndicator,failIndicator,rc
 
 function deleteClient(prodClientArray)
 {
-    const clients = []
+    var clients = []
     clients = document.querySelectorAll(".delete-client")
     clients.forEach((client) => {
         client.addEventListener("click", async () => {
