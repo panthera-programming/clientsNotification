@@ -252,7 +252,6 @@ async function prodClicked(num)
             document.querySelector(".clients-table-body").appendChild(tableRaw)
         }
     }
-    deleteClient(clients)
 }
 function reloadClients()
 {
@@ -346,27 +345,6 @@ function perClientOps(msgType,container,cancelBtn,respIndicator,failIndicator,rc
         document.getElementById(container).classList.replace("d-block", "d-none")
         document.getElementById(respIndicator).classList.replace("d-flex", "d-none")
         document.getElementById(failIndicator).classList.replace("d-flex", "d-none")
-    })
-}
-
-function deleteClient(prodClientArray)
-{
-    var clients = []
-    clients = document.querySelectorAll(".delete-client")
-    clients.forEach((client) => {
-        var pos = clients.indexOf(client)
-        client.addEventListener("click", async () => {
-            var clientId = prodClientArray[pos].id
-            const url = `${baseUrl}/api/client/delete?clientId=${clientId}`
-            console.log("Deleting client of id " + clientId)
-            console.log("Delete request to be sent to " + url)
-            const resp = await fetch(url, 
-                {
-                    method : "DELETE"
-                }
-            )
-            console.log(resp)
-        })
     })
 }
 function sendMail(formContainer,endpointLink){
