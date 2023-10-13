@@ -354,8 +354,9 @@ function deleteClient(prodClientArray)
     var clients = []
     clients = document.querySelectorAll(".delete-client")
     clients.forEach((client) => {
+        var pos = clients.indexOf(client)
         client.addEventListener("click", async () => {
-            var clientId = prodClientArray[clients.indexOf(client)].id
+            var clientId = prodClientArray[pos].id
             const url = `${baseUrl}/api/client/delete?clientId=${clientId}`
             console.log("Deleting client of id " + clientId)
             console.log("Delete request to be sent to " + url)
