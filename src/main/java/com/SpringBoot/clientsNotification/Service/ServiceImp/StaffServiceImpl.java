@@ -43,8 +43,9 @@ public class StaffServiceImpl implements StaffService {
     @Override
     public String registerStaff(StaffEntity staff)
     {
-        setPasswordMail(staff);
+        //setPasswordMail(staff);
         staffRepository.save(staff);
+        setPasswordMail(staffRepository.findByEmail(staff.getEmail()));
         return ("Staff Registration Successfully!");
     }
 
