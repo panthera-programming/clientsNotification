@@ -240,18 +240,7 @@ async function prodClicked(num)
             spanField6 = document.createElement("span")
             spanField6.classList.add("icon-container", "delete-client")
             //spanField6.setAttribute("class", "icon-container")
-            /*spanField6.addEventListener("click", async () => {
-                var clientId = field1.innerText
-                const url = `${baseUrl}/api/client/delete?clientId=${clientId}`
-                console.log("Deleting client of id " + clientId)
-                console.log("Delete request to be sent to " + url)
-                const resp = await fetch(url, 
-                    {
-                        method : "DELETE"
-                    }
-                )
-                console.log(resp)
-            })*/
+            /**/
             spanField6A = document.createElement("a")
             spanField6A.setAttribute("class", "material-symbols-rounded")
             spanField6A.classList.add("delete-icon")
@@ -263,6 +252,7 @@ async function prodClicked(num)
             document.querySelector(".clients-table-body").appendChild(tableRaw)
         }
     }
+    deleteClient(clients)
 }
 function reloadClients()
 {
@@ -356,6 +346,26 @@ function perClientOps(msgType,container,cancelBtn,respIndicator,failIndicator,rc
         document.getElementById(container).classList.replace("d-block", "d-none")
         document.getElementById(respIndicator).classList.replace("d-flex", "d-none")
         document.getElementById(failIndicator).classList.replace("d-flex", "d-none")
+    })
+}
+
+function deleteClient(prodClientArray)
+{
+    const clients = []
+    clients = document.querySelectorAll(".delete-client")
+    clients.forEach((client) => {
+        client.addEventListener("click", async () => {
+            var clientId = prodClientArray[clients.indexOf(client)].id
+            const url = `${baseUrl}/api/client/delete?clientId=${clientId}`
+            console.log("Deleting client of id " + clientId)
+            console.log("Delete request to be sent to " + url)
+            const resp = await fetch(url, 
+                {
+                    method : "DELETE"
+                }
+            )
+            console.log(resp)
+        })
     })
 }
 function sendMail(formContainer,endpointLink){
